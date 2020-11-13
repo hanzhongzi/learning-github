@@ -17,6 +17,6 @@ git log
     强制移动分支   git branch -f master <HEAD~3 这就是个位置> 
 git reset HEAD~1 #git reset HEAD~1 撤回这个分支并且将指针上移一个单位，撤回还在但是在缓存区
 git revert HEAD #撤销这个分支，并重新提交一次，重新提交的就是和上上次一样的。（远程分支）
-
-
 ```
+
+加油！
