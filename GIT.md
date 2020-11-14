@@ -82,13 +82,48 @@ rebase 交互式
 
 ## 命令的说明
 ```shell
-git push origin master   git push origin <place>
+git push origin master  # git push <romte> <place>
     把这个命令翻译过来就是：
     切到本地仓库中的“master”分支，获取所有的提交，再到远程仓库“origin”中找到“master”分支，将远程仓库中没有的提交记录都添加上去，搞定之后告诉我。
 
 要同时为源和目的地指定 <place> 的话，只需要用冒号 : 将二者连起来就可以了：
 git push <romte> <source>:<destination>
     这个参数实际的值是个 refspec，“refspec” 是一个自造的词，意思是 Git 能识别的位置（比如分支 foo 或者 HEAD~1）
+
+如果你像如下命令这样为 git fetch 设置 的话：
+
+git fetch origin foo
+    Git 会到远程仓库的 foo 分支上，然后获取所有本地不存在的提交，放到本地的 o/foo 上。
+    因为是同步，所以和git push 的参数是相反的
+    “如果我们指定 <source>:<destination> 会发生什么呢？”
+    如果你觉得直接更新本地分支很爽，那你就用冒号分隔的 refspec 吧。不过，你不能在当前检出的分支上干这个事，但是其它 分支是可以的。
+    这里有一点是需要注意的 —— source 现在指的是远程仓库中的位置，而 <destination> 才是要放置提交的本地仓库的位  置。它与 git push 刚好相反，这是可以讲的通的，因为我们在往相反的方向传送数据。
+```
+
+## 删除远程仓库分支
+```shell
+git push origin  :foo
+```
+
+## 创建新的本地分支
+```shell
+git fetch origin :bar
+```
+
+
+## git pull 衍生
+```shell
+git pull origin foo 相当于：
+    git fetch origin foo; git merge o/foo
+    还有...
+    git pull origin bar~1:bugFix 相当于：
+    git fetch origin bar~1:bugFix; git merge bugFix
+    看到了? git pull 实际上就是 fetch + merge 的缩写, git pull 唯一关注的是提交最终合并到哪里（也就是为 git  fetch 所提供的 destination 参数）
+
+
+git pull origin master:foo
+    它先在本地创建了一个叫 foo 的分支，从远程仓库中的 master 分支中下载提交记录，并合并到 foo，然后再 merge 到我们的当前检出的分支 bar 上。操作够多的吧？！
+
 
 ```
 加油！
