@@ -61,11 +61,29 @@ rebase 交互式
 ```shell
     git init # 将目录初始化为git
     git clone 地址 #将项目克隆到本机目录
-    git pull 项目 #拉取远程项目
+    git pull 项目 #拉取远程项目 相当于git fetch ; git merge o/master;
     git fetch 
-        远程仓库下载本地仓库中缺失的提交记录
+        从远程仓库下载本地仓库中缺失的提交记录，仅下载
         更新远程分支指针(如 o/master)
+    git push 上传项目，默认再  push.default 中有默认配置
+         基与上次下载的更新提交 git fetch;git rebase o/master; git push;==git pull --rebase; git push;
+                              git fetch;git merge o/master; git push;==git pull ; git push;
+    git rebase <被跟随分支> <要移动的分支>
+    git checkout -b totallyNotMaster o/master
+        就可以创建一个名为 totallyNotMaster 的分支，它跟踪远程分支 o/master。
+        另一种设置远程追踪分支的方法就是使用：git branch -u 命令，执行：
 
+    git branch -u o/master foo
+        这样 foo 就会跟踪 o/master 了。如果当前就在 foo 分支上, 还可以省略 foo：
+        git branch -u o/master
 ```
 
+## 命令的说明
+```shell
+git push origin master
+    把这个命令翻译过来就是：
+    切到本地仓库中的“master”分支，获取所有的提交，再到远程仓库“origin”中找到“master”分支，将远程仓库中没有的提交记录都添加上去，搞定之后告诉我。
+    
+```
 加油！
+gitee 推荐练习地址：https://oschina.gitee.io/learn-git-branching/?demo
