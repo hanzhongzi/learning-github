@@ -7,6 +7,7 @@ git branch <分支名称> #生成新的分支，但是指针在原分支
 git checkout <目标分支名称> #指针跳转到目标分支
 git merge <目标分支名称> #将目标分支名称的分支，合并到当前分支 指针不动，（或移动至最新）
 git rebase <目标分支名称> #将当前分支移动目标分支 带着项目
+git rebase <被跟随分支> <要移动的分支>
 ```
 
 ## 进阶操作
@@ -40,6 +41,7 @@ rebase 交互式
     git rebase -i HEAD~2 #修改顺序
     git commit --amend #新增提交
     git rebase -i HEAD~2 #将顺序改回来
+    
 法二
     git cherry-pick C2
     git commit --amend
@@ -80,10 +82,14 @@ rebase 交互式
 
 ## 命令的说明
 ```shell
-git push origin master
+git push origin master   git push origin <place>
     把这个命令翻译过来就是：
     切到本地仓库中的“master”分支，获取所有的提交，再到远程仓库“origin”中找到“master”分支，将远程仓库中没有的提交记录都添加上去，搞定之后告诉我。
-    
+
+要同时为源和目的地指定 <place> 的话，只需要用冒号 : 将二者连起来就可以了：
+git push <romte> <source>:<destination>
+    这个参数实际的值是个 refspec，“refspec” 是一个自造的词，意思是 Git 能识别的位置（比如分支 foo 或者 HEAD~1）
+
 ```
 加油！
 gitee 推荐练习地址：https://oschina.gitee.io/learn-git-branching/?demo
